@@ -1,59 +1,36 @@
-# OperationsButtonWidget
+# Cumulocity sample plugin
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
+This is the Cumulocity module federation plugin. Plugins can be developed like any Cumulocity application, but can be used at runtime by other applications. Therefore, they export an Angular module which can then be imported by any other application. The exports are defined in `cumulocity.config.ts`:
 
-## Development server
+```json
+"exports": [
+  {
+     "name": "Example sample plugin widget",
+     "module": "OperationButtonWidgetModule",
+     "path": "./src/app/index.ts",
+     "description": "Adds a custom widget to the shell application"
+  }
+]
+```
+Once the application has been built, the exports are also defined in the `cumulocity.json` file.
 
-To start a local development server, run:
+**How to start**
+Run the commands below to scaffold a `sample-plugin`.
 
 ```bash
-ng serve
+npx @angular/cli@v19-lts new --style=less # Install the correct version of Angular, which should be the same as your application.
+cd <new-application-name>
+ng add @c8y/websdk --application @c8y/sample-plugin
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+As the app.module is a typical Cumulocity application, any new plugin can be tested via the CLI:
 
 ```bash
-ng generate component component-name
+ng serve --shell cockpit
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+In the Module Federation terminology, `sample` plugin is called `remote` and the `cockpit` is called `shell`. Modules provided by this `sample` will be loaded by the `cockpit` application at the runtime. This plugin provides a basic custom widget that can be accessed through the `Add widget` menu and a new view in a left-hand navigator, where you can find links to Codex hooks entries.
 
-```bash
-ng generate --help
-```
+> Note that the `--shell` flag creates a proxy to the cockpit application and provides `OperationButtonWidgetModule` as an `remote` via URL options.
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Also deploying needs no special handling and can be simply done via `npm run deploy`. As soon as the application has exports it will be uploaded as a plugin.

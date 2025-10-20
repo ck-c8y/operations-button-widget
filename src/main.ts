@@ -1,6 +1,17 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+import './i18n';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+const barHolder: HTMLElement | null = document.querySelector('body > .init-load');
+export const removeProgress = () => barHolder?.parentNode?.removeChild(barHolder);
+
+applicationSetup();
+
+async function applicationSetup() {
+  const { loadMetaDataAndPerformBootstrap } = await import('@c8y/bootstrap');
+  const loadBootstrapModule = () =>
+    import(
+      /* webpackPreload: true */
+      './bootstrap'
+    );
+
+  loadMetaDataAndPerformBootstrap(loadBootstrapModule).then(removeProgress);
+}
