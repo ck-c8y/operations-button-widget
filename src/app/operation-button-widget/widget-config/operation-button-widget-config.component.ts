@@ -5,7 +5,7 @@ import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { OperationButtonWidgetComponent } from '../widget/operation-button-widget.component';
 import { WidgetConfigService } from '@c8y/ngx-components/context-dashboard';
-import { AlertService, CoreModule , DynamicComponent, IconDirective } from '@c8y/ngx-components';
+import { AlertService, CoreModule, DynamicComponent, IconDirective } from '@c8y/ngx-components';
 import { ButtonInstanceComponent } from '../button-instance/button-instance.component';
 import { OperationValueComponent } from './operationValue/operation-value.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -15,7 +15,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
   templateUrl: './operation-button-widget-config.component.html',
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm }],
   standalone: true,
-  imports: [CoreModule, CommonModule, FormsModule, IconDirective, BsDropdownModule, OperationButtonWidgetComponent, ButtonInstanceComponent, OperationValueComponent]
+  imports: [CoreModule, CommonModule, FormsModule, IconDirective, BsDropdownModule, OperationButtonWidgetComponent, OperationValueComponent]
 })
 export class OperationButtonWidgetConfigComponent implements DynamicComponent, OnInit {
 
@@ -24,16 +24,20 @@ export class OperationButtonWidgetConfigComponent implements DynamicComponent, O
   public supportedOperations: string[] = [];
 
   @Input() config: IOperationButtonWidgetConfig = {};
-  buttonClasses = [
+  buttonTypes = [
     'btn-default',
     'btn-primary',
-    'btn-secondary',
-    'btn-success',
     'btn-danger',
-    'btn-emphasis',
     'btn-info',
-    'btn-warning',
     'btn-link',
+    'btn-clean',
+  ];
+
+  buttonSizes = [
+    'btn-lg',
+    'btn-primary',
+    'btn-sm',
+    'btn-xs',
   ];
   availableIcons: string[] = [
     ...ICONS,
@@ -65,7 +69,8 @@ export class OperationButtonWidgetConfigComponent implements DynamicComponent, O
       label: 'Restart',
       description: 'Restart device',
       operationFragment: 'c8y_Restart',
-      buttonClasses: "btn-default",
+      buttonType: "btn-default",
+      buttonSize: "btn-default",
       operationValue: '{}',
       showModal: false,
       modalText: 'Confirm device restart',
@@ -80,4 +85,5 @@ export class OperationButtonWidgetConfigComponent implements DynamicComponent, O
   removeButton(index: number): void {
     this.config.buttons.splice(index, 1);
   }
+
 }

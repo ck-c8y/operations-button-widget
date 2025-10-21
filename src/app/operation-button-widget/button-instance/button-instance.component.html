@@ -1,7 +1,7 @@
 <button
   class="btn"
-  [ngClass]="config?.buttonClasses"
-  [title]="config?.description"
+  [ngClass]="classes"
+  [title]="config.description"
   (click)="openModal(confirm, 'modal-sm')">
   <i *ngIf="config?.icon" [c8yIcon]="config.icon"></i>
   {{ config?.label }}

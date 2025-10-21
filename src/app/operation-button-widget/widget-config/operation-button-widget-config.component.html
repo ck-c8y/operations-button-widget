@@ -1,13 +1,13 @@
 <div class="d-flex">
   <div class="col-sm-12">
     <div *ngIf="!config.device" class="col-sm-12">
-      <h3 class="text-center m-b-16">Define Operation Buttons</h3>
-      <h4 class="text-center">Before we can start you have to pick a device</h4>
+      <div class="text-center  text-16 m-b-16">Define Operation buttons</div>
+      <div class="text-center">Before we can start you have to pick a device</div>
     </div>
     <div *ngIf="config.device" class="col-sm-12">
-      <h3 class="text-center m-b-16">Define Operation Buttons</h3>
+      <div class="text-center  text-16 m-b-16">Define Operation buttons</div>
       <div *ngIf="!config?.buttons?.length">
-        <h4 class="text-center">No Buttons configured yet.</h4>
+        <div class="text-center">No Buttons configured yet.</div>
         <div class="j-c-center">
           <button class="m-16 btn btn-primary" (click)="addNewButton()">
             <i c8yIcon="plus"></i>Add first button
@@ -21,7 +21,7 @@
           <fieldset class="c8y-fieldset">
             <legend>Look & Feel</legend>
             <c8y-form-group>
-              <label translate for="buttonClasses">Button Icon</label>
+              <label translate for="buttonTypes">Button icon</label>
               <div class="dropdown" style="width: 100%" dropdown>
                 <button type="button" title="Icon for button" style="width: 100%" dropdownToggle
                   class="btn btn-default dropdown-toggle c8y-dropdown">
@@ -39,24 +39,47 @@
               </div>
             </c8y-form-group>
             <c8y-form-group>
-              <label translate for="buttonClasses">Button Color</label>
+              <label translate for="buttonType">Button type</label>
               <div class="dropdown" style="width: 100%" dropdown>
-                <button type="button" title="Color of the button" style="width: 100%" dropdownToggle [ngClass]="
+                <button type="button" title="Type of button" style="width: 100%" dropdownToggle [ngClass]="
                   'btn btn-default dropdown-toggle c8y-dropdown ' +
-                  (item.buttonClasses || 'btn-warning')
+                  (item.buttonType || 'btn-warning')
                 ">
                   <span><i [c8yIcon]="item.icon"></i>
                     {{
-                    item.buttonClasses ? item.buttonClasses : 'Choose Color'
+                    item.buttonType ? item.buttonType : 'Choose color'
                     }}</span>
                   <!-- <span class="caret"></span> -->
                 </button>
 
                 <ul class="dropdown-menu" *dropdownMenu>
-                  <li (click)="item.buttonClasses = class" *ngFor="let class of buttonClasses">
-                    <button type="button" style="width: 100%" [ngClass]="'btn ' + class">
-                      <i [c8yButton]="item.button" [c8yIcon]="item.icon"></i>
-                      {{ class }}
+                  <li (click)="item.buttonType = type" *ngFor="let type of buttonTypes">
+                    <button type="button" style="width: 100%" [ngClass]="'btn ' + type">
+                      <i [c8yButton]="item.buttonType" [c8yIcon]="item.icon"></i>
+                      {{ type }}
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </c8y-form-group>
+            <c8y-form-group>
+              <label translate for="buttonTypes">Button size</label>
+              <div class="dropdown" style="width: 100%" dropdown>
+                <button type="button" title="Color of the button" style="width: 100%" dropdownToggle [ngClass]="
+                  'btn btn-default dropdown-toggle c8y-dropdown ' +
+                  (item.buttonSize || 'btn-warning')
+                ">
+                  <span><i [c8yIcon]="item.icon"></i>
+                    {{
+                    item.buttonSize ? item.buttonSize : 'Choose size'
+                    }}</span>
+                </button>
+
+                <ul class="dropdown-menu" *dropdownMenu>
+                  <li (click)="item.buttonSize = size" *ngFor="let size of buttonSizes">
+                    <button type="button" style="width: 100%" [ngClass]="'btn ' + size">
+                      <i [c8yButton]="item.buttonSize" [c8yIcon]="item.icon"></i>
+                      {{ size }}
                     </button>
                   </li>
                 </ul>
@@ -88,7 +111,7 @@
           <fieldset class="c8y-fieldset">
             <legend>Settings</legend>
             <c8y-form-group>
-              <label translate for="icon">Supported Operations</label>
+              <label translate for="icon">Supported operations</label>
               <div class="dropdown" style="width: 100%" dropdown>
                 <button style="width: 100%" type="button" title="Choose a supported Device operation" dropdownToggle
                   class="btn btn-default dropdown-toggle c8y-dropdown">

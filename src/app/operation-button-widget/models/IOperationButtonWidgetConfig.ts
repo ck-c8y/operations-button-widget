@@ -10,7 +10,8 @@ export interface IOperationButtonConfig {
   label: string;
   icon?: string;
   operationFragment: string;
-  buttonClasses?: string;
+  buttonType?: string;
+  buttonSize?: string;
   description: string;
   operationValue: string;
   showModal: boolean;
